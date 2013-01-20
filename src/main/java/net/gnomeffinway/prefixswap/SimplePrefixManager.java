@@ -20,7 +20,7 @@ public class SimplePrefixManager implements PrefixManager {
 		return plugin.getDatabase().find(PrefixRecord.class).where().ieq("target", playerName).eq("prefix", prefix).findUnique();
 	}
 
-	public String addPrefix(String targetName, BasePrefix prefix, NotifyChanges notify) {
+	public String addPrefix(String targetName, Prefix prefix, NotifyChanges notify) {
 		String newPrefix = prefix.getName();
 		
 		//Should alphabetize this for organization
@@ -31,7 +31,7 @@ public class SimplePrefixManager implements PrefixManager {
 		record.setDescShort(prefix.getShortDesc());
 		record.setDescLong(prefix.getLongDesc());
 		record.setTime(System.currentTimeMillis());
-		record.setState(prefix.getDefaultState());
+		record.setState(prefix.getState());
 
 		plugin.getDatabase().save(record);
 

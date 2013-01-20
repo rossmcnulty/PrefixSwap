@@ -7,11 +7,11 @@ import javax.persistence.PersistenceException;
 
 import net.gnomeffinway.prefixswap.api.PrefixManager;
 import net.gnomeffinway.prefixswap.commands.BaseCommandExecutor;
+import net.gnomeffinway.prefixswap.listeners.PlayerLoginListener;
 
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class PrefixSwap extends JavaPlugin implements Listener{
+public class PrefixSwap extends JavaPlugin{
 	private static PrefixManager manager;
 
 	@Override
@@ -22,7 +22,9 @@ public class PrefixSwap extends JavaPlugin implements Listener{
 		
 		getCommand("prefixswap").setExecutor(new BaseCommandExecutor(this));
 		
+		PlayerLoginListener login=new PlayerLoginListener(getServer());
 		
+		getServer().getPluginManager().registerEvents(login, this);
 		
 		getLogger().info("Finished loading " + getDescription().getFullName());
 	}

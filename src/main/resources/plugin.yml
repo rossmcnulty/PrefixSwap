@@ -4,6 +4,8 @@ version: 0.1
 author: GnomeffinWay
 database: true
 
+depends: [GroupManager]
+
 commands:
     prefixswap:
         description: PrefixSwap root command
