@@ -1,0 +1,20 @@
+name: PrefixSwap
+main: net.gnomeffinway.prefixswap.PrefixSwap
+version: 0.1
+author: GnomeffinWay
+database: true
+
+commands:
+    prefixswap:
+        description: PrefixSwap root command
+        aliases: ps
+        usage: |
+            /<command>
+permissions:
+    prefixswap.*:
+        description: Gives access to all PrefixSwap commands
+        children:
+            rapsheet.lookup: true
+    rapsheet.list:
+        description: Lists player prefix options
+        default: true
