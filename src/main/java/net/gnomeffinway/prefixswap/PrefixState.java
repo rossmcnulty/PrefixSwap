@@ -1,7 +1,7 @@
 package net.gnomeffinway.prefixswap;
 
 public enum PrefixState {
-	BASE(1), NOTPURCHASED(2), NOTUNLOCKED(3), UNLOCKED(4);
+	BASE(1), NOTPURCHASED(2), LOCKED(3), UNLOCKED(4);
 
 	private int value;
 
@@ -20,7 +20,7 @@ public enum PrefixState {
 		case 2:
 			return NOTPURCHASED;
 		case 3:
-			return NOTUNLOCKED;
+			return LOCKED;
 		case 4:
 			return UNLOCKED;
 		default:

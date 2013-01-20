@@ -4,7 +4,7 @@ version: 0.1
 author: GnomeffinWay
 database: true
 
-depends: [GroupManager]
+depends: [GroupManager,LBStats,LogBlock]
 
 commands:
     prefixswap:
@@ -16,7 +16,7 @@ permissions:
     prefixswap.*:
         description: Gives access to all PrefixSwap commands
         children:
-            rapsheet.lookup: true
-    rapsheet.list:
+            prefixswap.list: true
+    prefixswap.list:
         description: Lists player prefix options
         default: true

@@ -2,14 +2,21 @@ package net.gnomeffinway.prefixswap;
 
 public enum Prefix {
 	
+	//Base ranks
 	SERF("Serf", 'f', "Punishment rank", "This rank disallows players from using many features and commands"),
 	PEASANT("Peasant", '8', "Default rank", "Base rank for all non-donor and non-Townsman players"),
 	TOWNSMAN("Townsman", '8', "Town member rank", "Base rank for players who are part of a town"),
 	MINSTREL("Minstrel",'5', "Donor 1 rank", "Base rank for all first tier donors"),
 	BARON("Baron",'b', "Donor 2 rank", "Base rank for all second tier donors"),
 	DUKE("Duke",'a', "Donor 3 rank", "Base rank for all third tier donors"),
-	ARCHDUKE("Archduke",'6',"Donor 4 rank","Base rank for all fourth tier donors");
+	ARCHDUKE("Archduke",'6',"Donor 4 rank","Base rank for all fourth tier donors"),
 
+	//Unlockable ranks
+	CHAMPION("Champion", '3', "McMMO leader rank", "Unlocked by being in the top 3 on /mctop", PrefixState.LOCKED),
+	ARTISAN("Artisan", '3', "Wealth rank", "Unlocked by acquiring $25,000 and over", PrefixState.LOCKED),
+	VETERAN("Veteran",'3',"Long-term rank", "Unlocked by playing for 30 hours and over", PrefixState.LOCKED);
+	
+	
 	private String name;
 	private char color;
 	private String shortDescription;
