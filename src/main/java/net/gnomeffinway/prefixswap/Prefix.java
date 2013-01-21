@@ -13,7 +13,7 @@ public enum Prefix {
 
 	//Unlockable ranks
 	CHAMPION("Champion", '3', "McMMO leader rank", "Unlocked by being in the top 3 on /mctop", PrefixState.LOCKED),
-	ARTISAN("Artisan", '3', "Wealth rank", "Unlocked by acquiring $25,000 and over", PrefixState.LOCKED),
+	MERCHANT("Merchant", '3', "Wealth rank", "Unlocked by acquiring $25,000 and over", PrefixState.LOCKED),
 	VETERAN("Veteran",'3',"Long-term rank", "Unlocked by playing for 30 hours and over", PrefixState.LOCKED);
 	
 	

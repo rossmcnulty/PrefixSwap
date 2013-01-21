@@ -8,6 +8,7 @@ import net.gnomeffinway.prefixswap.Prefix;
 import net.gnomeffinway.prefixswap.PrefixRecord;
 import net.gnomeffinway.prefixswap.PrefixState;
 import net.gnomeffinway.prefixswap.PrefixSwap;
+import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -55,6 +56,23 @@ public class ListCommandExecutor extends PrefixSwapCommand implements CommandExe
 			String message = color + record.getPrefix() + ChatColor.WHITE + ": ";
 
 			message += ChatColor.GRAY + "[";
+/*			To be added with SQL	
+			if(record.getPrefix().equals("Champion")){
+				if(record.getState()==PrefixState.LOCKED && mcTopCheck(sender.getName()))
+					record.setState(PrefixState.UNLOCKED);
+				else
+					if(record.getState()==PrefixState.UNLOCKED && !mcTopCheck(sender.getName()))
+						record.setState(PrefixState.LOCKED);
+			}
+			*/
+			
+			if(record.getPrefix().equals("Merchant")){
+				if(record.getState()==PrefixState.LOCKED && moneyCheck(sender.getName()))
+					record.setState(PrefixState.UNLOCKED);
+				else
+					if(record.getState()==PrefixState.UNLOCKED && !moneyCheck(sender.getName()))
+						record.setState(PrefixState.LOCKED);
+			}
 			
 			if(record.getPrefix().equals("Veteran") && record.getState()==PrefixState.LOCKED && timeCheck(sender.getName()))
 				record.setState(PrefixState.UNLOCKED);
@@ -88,6 +106,21 @@ public class ListCommandExecutor extends PrefixSwapCommand implements CommandExe
 		}
 		
 		return true;
+	}
+	
+/*	To be added with SQL
+	private boolean mcTopCheck(String name){
+		mcMMO mc=PrefixSwap.getMcMMO();
+		mc.getFlatFileDirectory().
+	}
+	*/
+	
+	private boolean moneyCheck(String name){
+		int minimum=50000;
+		Economy econ=PrefixSwap.getEconomy();
+		if(econ.getBalance(name)>=minimum)
+			return true;
+		return false;
 	}
 	
 	private boolean timeCheck(String name){

@@ -9,12 +9,18 @@ import javax.persistence.PersistenceException;
 import net.gnomeffinway.prefixswap.api.PrefixManager;
 import net.gnomeffinway.prefixswap.commands.BaseCommandExecutor;
 import net.gnomeffinway.prefixswap.listeners.PlayerLoginListener;
+import net.milkbowl.vault.economy.Economy;
 
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.gmail.nossr50.mcMMO;
 
 public class PrefixSwap extends JavaPlugin{
 	private static PrefixManager manager;
 	private static MySQLDatabase mySQL;
+	private static Economy economy;
+	private static mcMMO mcmmo;
 
 	@Override
 	public void onEnable() {
@@ -26,6 +32,27 @@ public class PrefixSwap extends JavaPlugin{
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
+		
+		RegisteredServiceProvider<Economy> rspEcon = getServer().getServicesManager().getRegistration(Economy.class);
+	     
+		mcmmo=(mcMMO) getServer().getPluginManager().getPlugin("mcMMO");
+		
+        //check if there is an economy plugin
+        if (rspEcon != null) 
+        {
+        	economy = rspEcon.getProvider();
+			getServer().getLogger().info("[PrefixSwap] Using " + economy.getName() + " plugin");
+        } 
+        else 
+        {
+        	getServer().getLogger().info("[PrefixSwap] Economy plugin not found");
+			this.getPluginLoader().disablePlugin(this);
+			return;
+		}
+        
+        if(mcmmo==null){
+			getServer().getLogger().info("[PrefixSwap] McMMO hooked");
+        }
 		
 		if(connectSQL()){
 			this.getLogger().info("[PrefixSwap] Successfully connected to LogBlock Database");
@@ -69,9 +96,17 @@ public class PrefixSwap extends JavaPlugin{
 		list.add(PrefixRecord.class);
 		return list;
 	}
+	
+	public static Economy getEconomy(){
+		return economy;
+	}
 
 	public static PrefixManager getManager() {
 		return manager;
+	}
+	
+	public static mcMMO getMcMMO(){
+		return mcmmo;
 	}
 	
 	public static MySQLDatabase getMySQL(){

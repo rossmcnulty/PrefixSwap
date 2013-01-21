@@ -36,8 +36,8 @@ public class PlayerLoginListener implements Listener{
 		
 		//Getting all unlockable ranks
 		List<Prefix> unlockables=new ArrayList<Prefix>();
-		unlockables.add(Prefix.ARTISAN);
 		unlockables.add(Prefix.CHAMPION);
+		unlockables.add(Prefix.MERCHANT);
 		unlockables.add(Prefix.VETERAN);
 		Iterator<Prefix> itr=unlockables.iterator();
 		
