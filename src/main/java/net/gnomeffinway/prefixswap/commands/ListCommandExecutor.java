@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.List;
 
+import net.gnomeffinway.prefixswap.Prefix;
 import net.gnomeffinway.prefixswap.PrefixRecord;
 import net.gnomeffinway.prefixswap.PrefixState;
 import net.gnomeffinway.prefixswap.PrefixSwap;
@@ -44,10 +45,13 @@ public class ListCommandExecutor extends PrefixSwapCommand implements CommandExe
 		Iterator<PrefixRecord> iterator = list.iterator();
 		while(iterator.hasNext()) {
 			PrefixRecord record = iterator.next();
+			ChatColor color;
 			
-			ChatColor color=ChatColor.DARK_AQUA;
-			System.out.println(ChatColor.getByChar("6"));
-			
+			if(Prefix.fromString(record.getPrefix())==null)
+				color=ChatColor.DARK_AQUA;
+			else
+				color=ChatColor.getByChar(Prefix.fromString(record.getPrefix()).getColor());
+						
 			String message = color + record.getPrefix() + ChatColor.WHITE + ": ";
 
 			message += ChatColor.GRAY + "[";
@@ -93,7 +97,6 @@ public class ListCommandExecutor extends PrefixSwapCommand implements CommandExe
 			ResultSet result = PrefixSwap.getMySQL().query("SELECT `onlinetime` FROM `lb-players` WHERE `playername` = '"+name+"' LIMIT 1");
 			if(result.next()){
 				res = Integer.parseInt(result.getString("onlinetime"));
-				plugin.getLogger().info("Result had next!");
 			}
 	    }
 	    catch (Exception e) {

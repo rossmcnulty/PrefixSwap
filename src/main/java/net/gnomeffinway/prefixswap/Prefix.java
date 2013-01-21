@@ -40,6 +40,20 @@ public enum Prefix {
 	}
 	
 	public static Prefix fromString(String value){
+		if(value.equalsIgnoreCase(SERF.getName()))
+			return SERF;
+		if(value.equalsIgnoreCase(PEASANT.getName()))
+			return PEASANT;
+		if(value.equalsIgnoreCase(TOWNSMAN.getName()))
+			return TOWNSMAN;
+		if(value.equalsIgnoreCase(MINSTREL.getName()))
+			return MINSTREL;
+		if(value.equalsIgnoreCase(BARON.getName()))
+			return BARON;
+		if(value.equalsIgnoreCase(DUKE.getName()))
+			return DUKE;
+		if(value.equalsIgnoreCase(ARCHDUKE.getName()))
+			return ARCHDUKE;
 		if(value.equalsIgnoreCase("&"+SERF.getColor()+SERF.getName()))
 			return SERF;
 		if(value.equalsIgnoreCase("&"+PEASANT.getColor()+PEASANT.getName()))

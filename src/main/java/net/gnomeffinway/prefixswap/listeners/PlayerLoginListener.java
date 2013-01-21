@@ -66,7 +66,6 @@ public class PlayerLoginListener implements Listener{
 		{
 			return null;
 		}
-		System.out.println(handler.getUserPrefix(base.getName()));
 		return handler.getUserPrefix(base.getName());
 	}
 	
