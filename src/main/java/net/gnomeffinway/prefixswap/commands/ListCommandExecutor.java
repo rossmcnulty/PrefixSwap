@@ -1,7 +1,6 @@
 package net.gnomeffinway.prefixswap.commands;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,17 +14,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.ballzofsteel.LBStats.LBStats;
-
 public class ListCommandExecutor extends PrefixSwapCommand implements CommandExecutor {
 	
 	PrefixSwap plugin;
-	LBStats stats;
 	
 	public ListCommandExecutor(PrefixSwap plugin) {
 		super(plugin);
 		this.plugin=plugin;
-		stats=(LBStats) plugin.getServer().getPluginManager().getPlugin("LBStats");
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -50,30 +45,15 @@ public class ListCommandExecutor extends PrefixSwapCommand implements CommandExe
 		while(iterator.hasNext()) {
 			PrefixRecord record = iterator.next();
 			
-			String message = ChatColor.DARK_AQUA + record.getPrefix() + ChatColor.WHITE + ": ";
+			ChatColor color=ChatColor.DARK_AQUA;
+			System.out.println(ChatColor.getByChar("6"));
+			
+			String message = color + record.getPrefix() + ChatColor.WHITE + ": ";
 
 			message += ChatColor.GRAY + "[";
-				
-			int num = 3;
-			ArrayList<String> topTimes=new ArrayList<String>();
-			try {
-		    	ResultSet result = LBStats.mySQLDatabase.query("SELECT `playername`, `onlinetime` FROM `lb-players` ORDER BY `onlinetime` DESC LIMIT " + num);
-		    	while (result.next()) { 
-		    		String name = result.getString("playername");
-		    		topTimes.add(name);
-		       } 
-		    }
-		    catch (Exception e) {
-		    	e.printStackTrace();
-		    }
 			
-			if(record.getPrefix().equals("Veteran") && hasTopTime(sender.getName(),topTimes)){
-				if(hasTopTime(sender.getName(),topTimes))
-					record.setState(PrefixState.UNLOCKED);
-				if(record.getState()==PrefixState.UNLOCKED)
-					if(!hasTopTime(sender.getName(),topTimes))
-						record.setState(PrefixState.LOCKED);
-			}
+			if(record.getPrefix().equals("Veteran") && record.getState()==PrefixState.LOCKED && timeCheck(sender.getName()))
+				record.setState(PrefixState.UNLOCKED);
 	
 			switch(record.getState()){
 				case BASE:
@@ -106,12 +86,24 @@ public class ListCommandExecutor extends PrefixSwapCommand implements CommandExe
 		return true;
 	}
 	
-	private boolean hasTopTime(String name, ArrayList<String> top){
-		for(int x=0; x<top.size(); x++)
-			if(top.get(x).equals(name))
-				return true;	
+	private boolean timeCheck(String name){
+		int res=0;
+		
+		try {
+			ResultSet result = PrefixSwap.getMySQL().query("SELECT `onlinetime` FROM `lb-players` WHERE `playername` = '"+name+"' LIMIT 1");
+			if(result.next()){
+				res = Integer.parseInt(result.getString("onlinetime"));
+				plugin.getLogger().info("Result had next!");
+			}
+	    }
+	    catch (Exception e) {
+	    	e.printStackTrace();
+	    	return false;
+	    }
+		
+		if(res >= 60*60*30)
+				return true;
 		return false;
 	}
-	
 		        
 }

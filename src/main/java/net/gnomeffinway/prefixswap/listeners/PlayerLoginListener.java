@@ -45,19 +45,16 @@ public class PlayerLoginListener implements Listener{
 			Prefix prefix=Prefix.fromString(getPrefix(plr));
 			if(prefix==null){
 				plugin.getServer().getLogger().severe(PREFIX_NOT_RECOGNIZED);
-				return;
 			}
-			
-			PrefixSwap.getManager().addPrefix(plr.getName(), prefix, NotifyChanges.TARGET);
+			else
+				PrefixSwap.getManager().addPrefix(plr.getName(), prefix, NotifyChanges.TARGET);
 		}
 		
 		Prefix next;
 		while(itr.hasNext()){
 			next=itr.next();
-			plugin.getServer().getLogger().info("Checking for prefix "+next.getName());
 			if(PrefixSwap.getManager().getPrefix(plr.getName(), next.getName())==null){
 				PrefixSwap.getManager().addPrefix(plr.getName(), next, NotifyChanges.TARGET);
-				plugin.getServer().getLogger().info("Prefix not found; added in");
 			}
 		}
 	}

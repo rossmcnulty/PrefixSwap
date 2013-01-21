@@ -1,0 +1,10 @@
+# Default configuration for PrefixSwap
+# Created by none other than GnomeffinWay of Entropolis
+#
+# Come check out our site at www.entropolis.co
+
+host: localhost
+port: 3306
+username: username
+password: password
+database: database
