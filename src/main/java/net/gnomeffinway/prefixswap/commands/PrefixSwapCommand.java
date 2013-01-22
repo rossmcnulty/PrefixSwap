@@ -11,6 +11,7 @@ public class PrefixSwapCommand {
 
 	protected final String COULD_NOT_FIND_PLAYER = ChatColor.RED + "Could not find that player!";
 	protected final String COULD_NOT_FIND_PREFIX = ChatColor.RED + "Could not find that prefix for <PLAYER>!";
+	protected final String PREFIX_NOT_UNLOCKED = ChatColor.RED + "That prefix isn't unlocked!";
 
 	public PrefixSwapCommand(PrefixSwap plugin) {
 		this.plugin = plugin;

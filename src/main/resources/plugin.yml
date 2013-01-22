@@ -17,6 +17,10 @@ permissions:
         description: Gives access to all PrefixSwap commands
         children:
             prefixswap.list: true
+            prefixswap.swap: true
     prefixswap.list:
         description: Lists player prefix options
+        default: true
+    prefixswap.swap:
+        description: Swaps player prefix if possible
         default: true

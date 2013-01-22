@@ -54,6 +54,12 @@ public enum Prefix {
 			return DUKE;
 		if(value.equalsIgnoreCase(ARCHDUKE.getName()))
 			return ARCHDUKE;
+		if(value.equalsIgnoreCase(CHAMPION.getName()))
+			return CHAMPION;
+		if(value.equalsIgnoreCase(MERCHANT.getName()))
+			return MERCHANT;
+		if(value.equalsIgnoreCase(VETERAN.getName()))
+			return VETERAN;
 		if(value.equalsIgnoreCase("&"+SERF.getColor()+SERF.getName()))
 			return SERF;
 		if(value.equalsIgnoreCase("&"+PEASANT.getColor()+PEASANT.getName()))
@@ -68,6 +74,12 @@ public enum Prefix {
 			return DUKE;
 		if(value.equalsIgnoreCase("&"+ARCHDUKE.getColor()+ARCHDUKE.getName()))
 			return ARCHDUKE;
+		if(value.equalsIgnoreCase("&"+CHAMPION.getColor()+CHAMPION.getName()))
+			return CHAMPION;
+		if(value.equalsIgnoreCase("&"+MERCHANT.getColor()+MERCHANT.getName()))
+			return MERCHANT;
+		if(value.equalsIgnoreCase("&"+VETERAN.getColor()+VETERAN.getName()))
+			return VETERAN;
 		return null;		
 	}
 	

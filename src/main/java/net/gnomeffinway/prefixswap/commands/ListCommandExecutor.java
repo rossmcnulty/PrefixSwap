@@ -61,21 +61,29 @@ public class ListCommandExecutor extends PrefixSwapCommand implements CommandExe
 				if(record.getState()==PrefixState.LOCKED && mcTopCheck(sender.getName()))
 					record.setState(PrefixState.UNLOCKED);
 				else
-					if(record.getState()==PrefixState.UNLOCKED && !mcTopCheck(sender.getName()))
+					if(record.getState()==PrefixState.UNLOCKED && !mcTopCheck(sender.getName())){
 						record.setState(PrefixState.LOCKED);
+						plugin.getDatabase().save(record);
+					}
 			}
 			*/
 			
 			if(record.getPrefix().equals("Merchant")){
-				if(record.getState()==PrefixState.LOCKED && moneyCheck(sender.getName()))
+				if(record.getState()==PrefixState.LOCKED && moneyCheck(sender.getName())){
 					record.setState(PrefixState.UNLOCKED);
+					plugin.getDatabase().save(record);
+				}
 				else
-					if(record.getState()==PrefixState.UNLOCKED && !moneyCheck(sender.getName()))
+					if(record.getState()==PrefixState.UNLOCKED && !moneyCheck(sender.getName())){
 						record.setState(PrefixState.LOCKED);
+						plugin.getDatabase().save(record);
+					}
 			}
 			
-			if(record.getPrefix().equals("Veteran") && record.getState()==PrefixState.LOCKED && timeCheck(sender.getName()))
+			if(record.getPrefix().equals("Veteran") && record.getState()==PrefixState.LOCKED && timeCheck(sender.getName())){
 				record.setState(PrefixState.UNLOCKED);
+				plugin.getDatabase().save(record);
+			}
 	
 			switch(record.getState()){
 				case BASE:
