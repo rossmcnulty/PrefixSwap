@@ -47,11 +47,11 @@ public class PrefixSwapCommand {
 		if(sender.hasPermission("prefixswap.list")) {
 			sender.sendMessage(ChatColor.GRAY + "/" + label + " list");
 		}
-		if(sender.hasPermission("prefixswap.swap")) {
-			sender.sendMessage(ChatColor.GRAY + "/" + label + " swap <prefix>");
-		}
 		if(sender.hasPermission("prefixswap.revert")) {
 			sender.sendMessage(ChatColor.GRAY + "/" + label + " revert");
+		}
+		if(sender.hasPermission("prefixswap.swap")) {
+			sender.sendMessage(ChatColor.GRAY + "/" + label + " swap <prefix>");
 		}
 	}
 }

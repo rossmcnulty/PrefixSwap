@@ -20,9 +20,11 @@ public class PrefixMonitor implements Runnable {
     @Override
     public void run() {
         String name;
+        final GroupManager gm = (GroupManager) plugin.getServer().getPluginManager().getPlugin("GroupManager");
                 
         for (Player player : plugin.getServer().getOnlinePlayers()) {
         	
+    		final AnjoPermissionsHandler handler = gm.getWorldsHolder().getWorldPermissions(player);
         	name=player.getName();
     		List<PrefixRecord> list = PrefixSwap.getManager().getPrefixes(name);
 
@@ -42,7 +44,14 @@ public class PrefixMonitor implements Runnable {
     				else {
     					plugin.getDatabase().save(next);
     					player.sendMessage(ChatColor.GOLD + next.getDescShort() + " is now "+next.getState().toString().toLowerCase());
-    					setPrefix(player, Prefix.fromString(PrefixSwap.getManager().getBasePrefix(player.getName()).getPrefix()));
+    					
+    					handler.removeUserInfo(player.getName(), "prefix");
+    					Prefix groupPrefix=Prefix.fromString(handler.getGroupPrefix(player.getName()));
+    					
+    					if(groupPrefix == null) {
+    						return;
+    					}
+    					player.sendMessage(ChatColor.GOLD+"Your rank has been changed to "+ChatColor.getByChar(groupPrefix.getColor())+groupPrefix.getName());
     				}
 					return;
    				}
@@ -56,7 +65,14 @@ public class PrefixMonitor implements Runnable {
     				else {
     					plugin.getDatabase().save(next);
     					player.sendMessage(ChatColor.GOLD + next.getDescShort() + " is now "+next.getState().toString().toLowerCase());
-    					setPrefix(player, Prefix.fromString(PrefixSwap.getManager().getBasePrefix(player.getName()).getPrefix()));
+    					
+    					handler.removeUserInfo(player.getName(), "prefix");
+    					Prefix groupPrefix=Prefix.fromString(handler.getGroupPrefix(player.getName()));
+    					
+    					if(groupPrefix == null) {
+    						return;
+    					}
+    					player.sendMessage(ChatColor.GOLD+"Your rank has been changed to "+ChatColor.getByChar(groupPrefix.getColor())+groupPrefix.getName());
     				}
 					return;
    				}
@@ -70,7 +86,14 @@ public class PrefixMonitor implements Runnable {
     				else {
     					plugin.getDatabase().save(next);
     					player.sendMessage(ChatColor.GOLD + next.getDescShort() + " is now "+next.getState().toString().toLowerCase());
-    					setPrefix(player, Prefix.fromString(PrefixSwap.getManager().getBasePrefix(player.getName()).getPrefix()));
+    					
+    					handler.removeUserInfo(player.getName(), "prefix");
+    					Prefix groupPrefix=Prefix.fromString(handler.getGroupPrefix(player.getName()));
+    					
+    					if(groupPrefix == null) {
+    						return;
+    					}
+    					player.sendMessage(ChatColor.GOLD+"Your rank has been changed to "+ChatColor.getByChar(groupPrefix.getColor())+groupPrefix.getName());
     				}
 					return;
    				}
@@ -78,17 +101,5 @@ public class PrefixMonitor implements Runnable {
 
         }
     }
-	
-	private void setPrefix(Player base, Prefix prefix) {
-		final GroupManager gm = (GroupManager) plugin.getServer().getPluginManager().getPlugin("GroupManager");
-		final AnjoPermissionsHandler handler = gm.getWorldsHolder().getWorldPermissions(base);
-		
-		if (handler == null)
-		{
-			return;
-		}
-		
-		handler.addUserInfo(base.getName(), "prefix","&"+prefix.getColor()+prefix.getName());
-		base.sendMessage(ChatColor.GOLD+"Your prefix has been reverted to "+ChatColor.getByChar(prefix.getColor())+prefix.getName());
-	}
+
 }
