@@ -9,10 +9,12 @@ import javax.persistence.PersistenceException;
 import net.gnomeffinway.prefixswap.api.PrefixManager;
 import net.gnomeffinway.prefixswap.commands.BaseCommandExecutor;
 import net.gnomeffinway.prefixswap.listeners.PlayerLoginListener;
+import net.gnomeffinway.prefixswap.util.MySQLDatabase;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import com.gmail.nossr50.mcMMO;
 
@@ -33,39 +35,15 @@ public class PrefixSwap extends JavaPlugin{
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		
-		RegisteredServiceProvider<Economy> rspEcon = getServer().getServicesManager().getRegistration(Economy.class);
-	     
-		mcmmo=(mcMMO) getServer().getPluginManager().getPlugin("mcMMO");
-		
-        //check if there is an economy plugin
-        if (rspEcon != null) 
-        {
-        	economy = rspEcon.getProvider();
-			getServer().getLogger().info("[PrefixSwap] Using " + economy.getName() + " plugin");
-        } 
-        else 
-        {
-        	getServer().getLogger().info("[PrefixSwap] Economy plugin not found");
-			this.getPluginLoader().disablePlugin(this);
-			return;
-		}
-        
-        if(mcmmo==null){
-			getServer().getLogger().info("[PrefixSwap] McMMO hooked");
-        }
-		
-		if(connectSQL()){
-			this.getLogger().info("[PrefixSwap] Successfully connected to LogBlock Database");
-			keepSQLActive();
-		}
-		else{
-			this.getLogger().severe("[PrefixSwap] Failed to connect to LogBlock Database");
-			getServer().getPluginManager().disablePlugin(this);
-		}
+		checkPlugins();
 		
 		PlayerLoginListener login=new PlayerLoginListener(getServer());
 		
 		getServer().getPluginManager().registerEvents(login, this);
+		
+        BukkitScheduler scheduler = getServer().getScheduler();
+        
+        scheduler.scheduleSyncRepeatingTask(this, new PrefixMonitor(this), 0, 200);
 		
 		getLogger().info("Finished loading " + getDescription().getFullName());
 	}
@@ -97,7 +75,7 @@ public class PrefixSwap extends JavaPlugin{
 		return list;
 	}
 	
-	public static Economy getEconomy(){
+	public static Economy getEconomy() {
 		return economy;
 	}
 
@@ -105,16 +83,50 @@ public class PrefixSwap extends JavaPlugin{
 		return manager;
 	}
 	
-	public static mcMMO getMcMMO(){
+	public static mcMMO getMcMMO() {
 		return mcmmo;
 	}
 	
-	public static MySQLDatabase getMySQL(){
+	public static MySQLDatabase getMySQL() {
 		return mySQL;
 	}
 	
-	public boolean connectSQL()
-	{
+	public void checkPlugins() {
+		RegisteredServiceProvider<Economy> rspEcon = getServer().getServicesManager().getRegistration(Economy.class);
+	     
+		mcmmo=(mcMMO) getServer().getPluginManager().getPlugin("mcMMO");
+		
+        //check if there is an economy plugin
+        if (rspEcon != null) {
+        	economy = rspEcon.getProvider();
+			getServer().getLogger().info("[PrefixSwap] Using " + economy.getName() + " plugin");
+        } 
+        else {
+        	getServer().getLogger().info("[PrefixSwap] Economy plugin not found");
+			this.getPluginLoader().disablePlugin(this);
+			return;
+		}
+        
+        if(mcmmo != null) {
+			getServer().getLogger().info("[PrefixSwap] McMMO hooked");
+        }
+        else {
+        	getServer().getLogger().info("[PrefixSwap] McMMO not found");
+			this.getPluginLoader().disablePlugin(this);
+			return;
+		}
+		
+		if(connectSQL()) {
+			this.getLogger().info("[PrefixSwap] Successfully connected to LogBlock Database");
+			keepSQLActive();
+		}
+		else {
+			this.getLogger().severe("[PrefixSwap] Failed to connect to LogBlock Database");
+			getServer().getPluginManager().disablePlugin(this);
+		}
+	}
+	
+	public boolean connectSQL() {
 	    try
 	    {
 	      mySQL = new MySQLDatabase(getConfig().getString("host"), getConfig().getString("port"), getConfig().getString("username"), getConfig().getString("password"), getConfig().getString("database"));
@@ -126,8 +138,7 @@ public class PrefixSwap extends JavaPlugin{
 	    return false;
 	}
 	
-	public void keepSQLActive()
-	{
+	public void keepSQLActive() {
 	    getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 	      public void run() {
 	        if ((!PrefixSwap.this.pingSQL()) && 

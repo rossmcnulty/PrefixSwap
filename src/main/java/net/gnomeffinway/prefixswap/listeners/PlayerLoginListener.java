@@ -36,13 +36,14 @@ public class PlayerLoginListener implements Listener{
 		
 		//Getting all unlockable ranks
 		List<Prefix> unlockables=new ArrayList<Prefix>();
-		unlockables.add(Prefix.CHAMPION);
+		unlockables.add(Prefix.LABRAT);
+		unlockables.add(Prefix.MEDALIST);
 		unlockables.add(Prefix.MERCHANT);
 		unlockables.add(Prefix.VETERAN);
 		Iterator<Prefix> itr=unlockables.iterator();
 		
 		if(list==null || list.size()==0){
-			Prefix prefix=Prefix.fromString(getPrefix(plr));
+			Prefix prefix=Prefix.fromString(getGroupPrefix(plr));
 			if(prefix==null){
 				plugin.getServer().getLogger().severe(PREFIX_NOT_RECOGNIZED);
 			}
@@ -59,14 +60,13 @@ public class PlayerLoginListener implements Listener{
 		}
 	}
 	
-	public String getPrefix(final Player base)
-	{
+	public String getGroupPrefix(final Player base) {
 		final AnjoPermissionsHandler handler = gm.getWorldsHolder().getWorldPermissions(base);
 		if (handler == null)
 		{
 			return null;
 		}
-		return handler.getUserPrefix(base.getName());
+		return handler.getGroupPrefix(handler.getGroup(base.getName()));
 	}
 	
 }

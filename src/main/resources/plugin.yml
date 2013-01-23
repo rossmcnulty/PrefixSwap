@@ -17,10 +17,20 @@ permissions:
         description: Gives access to all PrefixSwap commands
         children:
             prefixswap.list: true
+            prefixswap.revert: true
             prefixswap.swap: true
+            prefixswap.viewhidden: true
     prefixswap.list:
         description: Lists player prefix options
+        default: true
+        children:
+            prefixswap.list.hidden: false
+    prefixswap.revert:
+        description: Reverts player prefix if possible
         default: true
     prefixswap.swap:
         description: Swaps player prefix if possible
         default: true
+    prefixswap.viewhidden:
+        description: Access to hidden prefixes
+        default: op

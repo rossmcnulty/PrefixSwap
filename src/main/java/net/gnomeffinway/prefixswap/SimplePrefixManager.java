@@ -15,6 +15,10 @@ public class SimplePrefixManager implements PrefixManager {
 	public List<PrefixRecord> getPrefixes(String playerName) {
 		return plugin.getDatabase().find(PrefixRecord.class).where().ieq("target", playerName).findList();
 	}
+	
+	public PrefixRecord getBasePrefix(String playerName) {
+		return plugin.getDatabase().find(PrefixRecord.class).where().ieq("target", playerName).eq("state", PrefixState.BASE).findUnique();
+	}
 
 	public PrefixRecord getPrefix(String playerName, String prefix) {
 		return plugin.getDatabase().find(PrefixRecord.class).where().ieq("target", playerName).eq("prefix", prefix).findUnique();

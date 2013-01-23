@@ -37,8 +37,8 @@ public class PrefixRecord {
 	private long time;
 
 	@NotNull
-	@Column(name="secret")
-	private boolean secret;
+	@Column(name="hidden")
+	private boolean hidden;
 
 	@Enumerated
 	@Column(name="state")
@@ -91,13 +91,17 @@ public class PrefixRecord {
 	public void setTime(long time) {
 		this.time = time;
 	}
+	
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
 
-	public boolean isSecret() {
-		return secret;
+	public boolean isHidden() {
+		return hidden;
 	}
 
 	public void setSecret(boolean secret) {
-		this.secret = secret;
+		this.hidden = secret;
 	}
 
 	public PrefixState getState() {

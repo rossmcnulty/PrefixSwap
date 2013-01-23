@@ -12,16 +12,19 @@ public enum Prefix {
 	ARCHDUKE("Archduke",'6',"Donor 4 rank","Base rank for all fourth tier donors"),
 
 	//Unlockable ranks
-	CHAMPION("Champion", '3', "McMMO leader rank", "Unlocked by being in the top 3 on /mctop", PrefixState.LOCKED),
+	MEDALIST("Medalist", '3', "McMMO leader rank", "Unlocked by being in the top 3 on /mctop", PrefixState.LOCKED),
 	MERCHANT("Merchant", '3', "Wealth rank", "Unlocked by acquiring $25,000 and over", PrefixState.LOCKED),
-	VETERAN("Veteran",'3',"Long-term rank", "Unlocked by playing for 30 hours and over", PrefixState.LOCKED);
+	VETERAN("Veteran",'3',"Long-term rank", "Unlocked by playing for 30 hours and over", PrefixState.LOCKED),
 	
+	//Hidden ranks
+	LABRAT("Labrat", '3', "Tester rank", "Unlocked if subjected to unreasonable server testing", PrefixState.LOCKED, true);
 	
 	private String name;
 	private char color;
 	private String shortDescription;
 	private String longDescription;
 	private PrefixState state;
+	private boolean hidden;
 	
 	private Prefix(String name, char color, String shortDescription, String longDescription){
 		this.name=name;
@@ -29,6 +32,7 @@ public enum Prefix {
 		this.shortDescription=shortDescription;
 		this.longDescription=longDescription;
 		state=PrefixState.BASE;
+		hidden=false;
 	}
 	
 	private Prefix(String name, char color, String shortDescription, String longDescription, PrefixState state){
@@ -37,6 +41,16 @@ public enum Prefix {
 		this.shortDescription=shortDescription;
 		this.longDescription=longDescription;
 		this.state=state;
+		hidden=false;
+	}
+	
+	private Prefix(String name, char color, String shortDescription, String longDescription, PrefixState state, boolean hidden){
+		this.name=name;
+		this.color=color;
+		this.shortDescription=shortDescription;
+		this.longDescription=longDescription;
+		this.state=state;
+		this.hidden=hidden;
 	}
 	
 	public static Prefix fromString(String value){
@@ -54,8 +68,10 @@ public enum Prefix {
 			return DUKE;
 		if(value.equalsIgnoreCase(ARCHDUKE.getName()))
 			return ARCHDUKE;
-		if(value.equalsIgnoreCase(CHAMPION.getName()))
-			return CHAMPION;
+		if(value.equalsIgnoreCase(LABRAT.getName()))
+			return LABRAT;
+		if(value.equalsIgnoreCase(MEDALIST.getName()))
+			return MEDALIST;
 		if(value.equalsIgnoreCase(MERCHANT.getName()))
 			return MERCHANT;
 		if(value.equalsIgnoreCase(VETERAN.getName()))
@@ -74,8 +90,10 @@ public enum Prefix {
 			return DUKE;
 		if(value.equalsIgnoreCase("&"+ARCHDUKE.getColor()+ARCHDUKE.getName()))
 			return ARCHDUKE;
-		if(value.equalsIgnoreCase("&"+CHAMPION.getColor()+CHAMPION.getName()))
-			return CHAMPION;
+		if(value.equalsIgnoreCase("&"+LABRAT.getColor()+LABRAT.getName()))
+			return LABRAT;
+		if(value.equalsIgnoreCase("&"+MEDALIST.getColor()+MEDALIST.getName()))
+			return MEDALIST;
 		if(value.equalsIgnoreCase("&"+MERCHANT.getColor()+MERCHANT.getName()))
 			return MERCHANT;
 		if(value.equalsIgnoreCase("&"+VETERAN.getColor()+VETERAN.getName()))
@@ -101,6 +119,10 @@ public enum Prefix {
 
 	public PrefixState getState() {
 		return state;
+	}
+	
+	public boolean isHidden() {
+		return hidden;
 	}
 		
 }

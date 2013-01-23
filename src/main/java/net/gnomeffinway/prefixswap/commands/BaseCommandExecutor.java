@@ -11,8 +11,8 @@ public class BaseCommandExecutor extends PrefixSwapCommand implements CommandExe
 	private final String NO_PERMISSION = ChatColor.RED + "You do not have permission to use that command!";
 
 	private CommandExecutor listCommand  = new ListCommandExecutor(plugin);
+	private CommandExecutor revertCommand = new RevertCommandExecutor(plugin);
 	private CommandExecutor swapCommand = new SwapCommandExecutor(plugin);
-	
 
 	public BaseCommandExecutor(PrefixSwap plugin) {
 		super(plugin);
@@ -30,6 +30,12 @@ public class BaseCommandExecutor extends PrefixSwapCommand implements CommandExe
 				return true;
 			}
 			listCommand.onCommand(sender, cmd, label, args);
+		} else if(args[0].equalsIgnoreCase("revert")) {
+			if(!sender.hasPermission("prefixswap.revert")) {
+				sender.sendMessage(NO_PERMISSION);
+				return true;
+			}
+			revertCommand.onCommand(sender, cmd, label, args);
 		} else if(args[0].equalsIgnoreCase("swap")) {
 				if(!sender.hasPermission("prefixswap.swap")) {
 					sender.sendMessage(NO_PERMISSION);
@@ -40,7 +46,6 @@ public class BaseCommandExecutor extends PrefixSwapCommand implements CommandExe
 			printHelp(sender, label);
 		}
 		
-
 		return true;
 	}
 }

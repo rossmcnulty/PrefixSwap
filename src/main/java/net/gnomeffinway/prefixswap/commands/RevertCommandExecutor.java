@@ -7,7 +7,6 @@ import net.gnomeffinway.prefixswap.Prefix;
 import net.gnomeffinway.prefixswap.PrefixRecord;
 import net.gnomeffinway.prefixswap.PrefixState;
 import net.gnomeffinway.prefixswap.PrefixSwap;
-import net.gnomeffinway.prefixswap.util.Requirements;
 
 import org.anjocaido.groupmanager.GroupManager;
 import org.anjocaido.groupmanager.permissions.AnjoPermissionsHandler;
@@ -17,11 +16,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class SwapCommandExecutor extends PrefixSwapCommand implements CommandExecutor {
+public class RevertCommandExecutor extends PrefixSwapCommand implements CommandExecutor {
 	
 	private GroupManager gm;
 
-	public SwapCommandExecutor(PrefixSwap plugin) {
+	public RevertCommandExecutor(PrefixSwap plugin) {
 		super(plugin);
 		this.plugin=plugin;
 		gm=(GroupManager) plugin.getServer().getPluginManager().getPlugin("GroupManager");
@@ -29,7 +28,7 @@ public class SwapCommandExecutor extends PrefixSwapCommand implements CommandExe
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-		if(args.length < 2){
+		if(args.length < 1){
 			printArgsError(args);
 			printHelp(sender, label);
 			return true;
@@ -53,29 +52,9 @@ public class SwapCommandExecutor extends PrefixSwapCommand implements CommandExe
 		PrefixRecord next;
 		while(itr.hasNext()){
 			next=itr.next();
-			if(next.getPrefix().equalsIgnoreCase(args[1])){
-				if(next.getState() == PrefixState.LOCKED || next.getState() == PrefixState.NOTPURCHASED){
-					sender.sendMessage(PREFIX_NOT_UNLOCKED);
-					return true;
-				}
-				else {
-					if(next.getState() == PrefixState.BASE) {
-						setPrefix((Player) sender, Prefix.fromString(next.getPrefix()));
-						return true;
-					}
-//					if(Requirements.medalistCheck(next) != Requirements.FAILED) {
-//						setPrefix(sender.getName(), next.getPrefix());
-//						return true;
-//					}
-					if(Requirements.merchantCheck(next) != Requirements.FAILED) {
-						setPrefix((Player) sender, Prefix.fromString(next.getPrefix()));
-						return true;
-					}
-					if(Requirements.veteranCheck(next) != Requirements.FAILED) {
-						setPrefix((Player) sender, Prefix.fromString(next.getPrefix()));
-						return true;
-					}
-				}
+			if(next.getState() == PrefixState.BASE){
+				setPrefix((Player) sender, Prefix.fromString(next.getPrefix()));
+				return true;
 			}
 		}
 		

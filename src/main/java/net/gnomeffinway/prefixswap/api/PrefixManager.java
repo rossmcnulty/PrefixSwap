@@ -9,6 +9,8 @@ public interface PrefixManager {
 	public List<PrefixRecord> getPrefixes(String playerName);
 
 	public PrefixRecord getPrefix(String playerName, String prefix);
+	
+	public PrefixRecord getBasePrefix(String playerName);
 
 	public String addPrefix(String targetName, Prefix prefix, NotifyChanges notify);
 
