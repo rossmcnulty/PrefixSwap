@@ -6,4 +6,4 @@ Plugin allowing for dynamic unlocking and swapping of prefixes.
 Made for the Entropolis Minecraft RPG server. Visit us at www.entropolis.co
 
 === License
-PrefixSwap is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivs 3.0](http://creativecommons.org/licenses/by-nc-nd/3.0/ "More details") licence.
+PrefixSwap is licensed under the [[http://creativecommons.org/licenses/by-nc-nd/3.0/|Creative Commons Attribution-NonCommercial-NoDerivs 3.0]] licence.
