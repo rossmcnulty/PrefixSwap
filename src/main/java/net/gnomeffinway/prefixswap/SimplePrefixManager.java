@@ -34,6 +34,7 @@ public class SimplePrefixManager implements PrefixManager {
 		record.setTarget(targetName);
 		record.setDescShort(prefix.getShortDesc());
 		record.setDescLong(prefix.getLongDesc());
+		record.setHidden(prefix.isHidden());
 		record.setTime(System.currentTimeMillis());
 		record.setState(prefix.getState());
 

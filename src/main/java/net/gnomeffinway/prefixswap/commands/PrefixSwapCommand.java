@@ -44,6 +44,9 @@ public class PrefixSwapCommand {
 	}
 
 	protected void printHelp(CommandSender sender, String label) {
+		if(sender.hasPermission("prefixswap.info")) {
+			sender.sendMessage(ChatColor.GRAY + "/" + label + " info <prefix>");
+		}
 		if(sender.hasPermission("prefixswap.list")) {
 			sender.sendMessage(ChatColor.GRAY + "/" + label + " list");
 		}
@@ -52,6 +55,9 @@ public class PrefixSwapCommand {
 		}
 		if(sender.hasPermission("prefixswap.swap")) {
 			sender.sendMessage(ChatColor.GRAY + "/" + label + " swap <prefix>");
+		}
+		if(sender.hasPermission("prefixswap.unlock")) {
+			sender.sendMessage(ChatColor.GRAY + "/" + label + " unlock <player> <prefix>");
 		}
 	}
 }

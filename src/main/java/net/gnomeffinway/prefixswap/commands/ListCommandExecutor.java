@@ -40,14 +40,13 @@ public class ListCommandExecutor extends PrefixSwapCommand implements CommandExe
 			return true;
 		}
 		
-		sender.sendMessage(ChatColor.GOLD + "----- " + ChatColor.AQUA + target + ChatColor.GOLD + " -----");
+		sender.sendMessage(ChatColor.GOLD + "-------- " + ChatColor.AQUA + target + ChatColor.GOLD + " --------");
 		
 		Iterator<PrefixRecord> iterator = list.iterator();
 		while(iterator.hasNext()) {
 			PrefixRecord record = iterator.next();
 			ChatColor color;
-			
-			if(record.getState() == PrefixState.UNLOCKED || !record.isHidden()) {
+			if(!record.isHidden() || record.getState() == PrefixState.UNLOCKED || sender.hasPermission("prefixswap.viewhidden")) {
 			
 				if(Prefix.fromString(record.getPrefix())==null)
 					color=ChatColor.DARK_AQUA;

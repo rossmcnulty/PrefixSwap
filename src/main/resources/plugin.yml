@@ -16,21 +16,27 @@ permissions:
     prefixswap.*:
         description: Gives access to all PrefixSwap commands
         children:
+            prefixswap.info: true
             prefixswap.list: true
             prefixswap.revert: true
             prefixswap.swap: true
+            prefixswap.unlock: true
             prefixswap.viewhidden: true
+    prefixswap.info:
+        description: Gives more information on a prefix
+        default: true
     prefixswap.list:
         description: Lists player prefix options
         default: true
-        children:
-            prefixswap.list.hidden: false
     prefixswap.revert:
         description: Reverts player prefix if possible
         default: true
     prefixswap.swap:
         description: Swaps player prefix if possible
         default: true
+    prefixswap.unlock:
+        description: Unlocks a prefix for a player
+        default: op
     prefixswap.viewhidden:
         description: Access to hidden prefixes
         default: op

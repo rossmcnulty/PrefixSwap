@@ -1,7 +1,9 @@
 package net.gnomeffinway.prefixswap.util;
 
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 
+import net.gnomeffinway.prefixswap.Prefix;
 import net.gnomeffinway.prefixswap.PrefixRecord;
 import net.gnomeffinway.prefixswap.PrefixState;
 import net.gnomeffinway.prefixswap.PrefixSwap;
@@ -129,4 +131,42 @@ public enum Requirements {
 				return true;
 		return false;
 	}
+	
+	public static String progCheck(String name, Prefix prefix) {
+	
+		if(prefix.getName().equals("Merchant")) {
+			double bal=0;
+			Economy econ=PrefixSwap.getEconomy();
+			bal=econ.getBalance(name);
+			return toDecimal(bal,2);
+		}
+		
+		if(prefix.getName().equals("Veteran")) {
+			int res=0;
+			double resConverted=0;
+			
+			try {
+				ResultSet result = PrefixSwap.getMySQL().query("SELECT `onlinetime` FROM `lb-players` WHERE `playername` = '"+name+"' LIMIT 1");
+				if(result.next()){
+					res = Integer.parseInt(result.getString("onlinetime"));
+					resConverted = res/3600;
+					return toDecimal(resConverted, 2) + " hours";
+				}
+		    }
+		    catch (Exception e) {
+		    	e.printStackTrace();
+		    	return null;
+		    }
+		}
+		
+		return "No progress found";
+	}
+	
+	public static String toDecimal(double num, int place) {
+		DecimalFormat df = new DecimalFormat();
+		df.setMinimumFractionDigits(2);
+		df.setMaximumFractionDigits(2);
+		return df.format(num);
+	}
+	
 }

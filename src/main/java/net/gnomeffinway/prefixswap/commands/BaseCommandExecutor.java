@@ -10,9 +10,11 @@ import org.bukkit.command.CommandSender;
 public class BaseCommandExecutor extends PrefixSwapCommand implements CommandExecutor {
 	private final String NO_PERMISSION = ChatColor.RED + "You do not have permission to use that command!";
 
+	private CommandExecutor infoCommand = new InfoCommandExecutor(plugin);
 	private CommandExecutor listCommand  = new ListCommandExecutor(plugin);
 	private CommandExecutor revertCommand = new RevertCommandExecutor(plugin);
 	private CommandExecutor swapCommand = new SwapCommandExecutor(plugin);
+	private CommandExecutor unlockCommand = new UnlockCommandExecutor(plugin);
 
 	public BaseCommandExecutor(PrefixSwap plugin) {
 		super(plugin);
@@ -24,7 +26,13 @@ public class BaseCommandExecutor extends PrefixSwapCommand implements CommandExe
 			return true;
 		}
 
-		if(args[0].equalsIgnoreCase("list")) {
+		if(args[0].equalsIgnoreCase("info")) {
+			if(!sender.hasPermission("prefixswap.info")) {
+				sender.sendMessage(NO_PERMISSION);
+				return true;
+			}
+			infoCommand.onCommand(sender, cmd, label, args);
+		} else if(args[0].equalsIgnoreCase("list")) {
 			if(!sender.hasPermission("prefixswap.list")) {
 				sender.sendMessage(NO_PERMISSION);
 				return true;
@@ -42,6 +50,12 @@ public class BaseCommandExecutor extends PrefixSwapCommand implements CommandExe
 					return true;
 				}
 			swapCommand.onCommand(sender, cmd, label, args);
+		} else if(args[0].equalsIgnoreCase("unlock")) {
+			if(!sender.hasPermission("prefixswap.unlock")) {
+				sender.sendMessage(NO_PERMISSION);
+				return true;
+			}
+			unlockCommand.onCommand(sender, cmd, label, args);
 		} else {
 			printHelp(sender, label);
 		}
