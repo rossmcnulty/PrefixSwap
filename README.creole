@@ -5,5 +5,13 @@ Plugin allowing for dynamic unlocking and swapping of prefixes.
 
 Made for the Entropolis Minecraft RPG server. Visit us at www.entropolis.co
 
+=== Coming Soon
+* Increased configurability/ability to add and define custom ranks
+* Implementation of purchase/redeem commands
+* Console recognition
+* Refactoring/reorganization
+* Additional rank requirements/listeners
+* /prefixswap lock <player> <prefix> command
+
 === License
 PrefixSwap is licensed under the [[http://creativecommons.org/licenses/by-nc-nd/3.0/|Creative Commons Attribution-NonCommercial-NoDerivs 3.0]] licence.
