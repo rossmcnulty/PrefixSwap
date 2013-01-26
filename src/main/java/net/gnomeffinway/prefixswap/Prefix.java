@@ -12,12 +12,21 @@ public enum Prefix {
 	ARCHDUKE("Archduke",'6',"Donor 4 rank","Base rank for all fourth tier donors"),
 
 	//Unlockable ranks
-	MEDALIST("Medalist", '3', "McMMO leader rank", "Unlocked by being in the top 3 on /mctop", PrefixState.LOCKED),
-	MERCHANT("Merchant", '3', "Wealth rank", "Unlocked by acquiring $50,000 and over", PrefixState.LOCKED),
-	VETERAN("Veteran",'3',"Long-term rank", "Unlocked by playing for 30 hours and over", PrefixState.LOCKED),
+	MEDALIST("Medalist", '3', "McMMO leader prefix", "Unlocked by being in the top 3 on /mctop", PrefixState.LOCKED),
+	MERCHANT("Merchant", '3', "Wealth prefix", "Unlocked by acquiring $50,000 and over", PrefixState.LOCKED),
+	VETERAN("Veteran",'3',"Long-term prefix", "Unlocked by playing for 30 hours and over", PrefixState.LOCKED),
 	
 	//Hidden ranks
-	LABRAT("Labrat", '3', "Tester rank", "Unlocked if subjected to unreasonable server testing", PrefixState.LOCKED, true);
+	LABRAT("Labrat", '3', "Tester prefix", "Unlocked if subjected to unreasonable server testing", PrefixState.LOCKED, true),
+	
+	//Buyable ranks
+	CREEPER("Creeper",'2',"Mobsters pack","Hsssssss...",PrefixState.NOTPURCHASED,true),
+	SQUID("Squid",'2',"Mobsters pack","May cause users to float randomly above water",PrefixState.NOTPURCHASED,true),
+	ZOMBIE("Zombie",'2',"Mobsters pack","Euurrgghhh",PrefixState.NOTPURCHASED,true),
+	PIGMAN("Pigman",'2',"Mobsters pack","Is it a pig? Is it a man? No! It's a Pigman!",PrefixState.NOTPURCHASED,true),
+	OCELOT("Ocelot",'2',"Mobsters pack","Keepin' them Creepers at bay all day e'ry day",PrefixState.NOTPURCHASED,true),
+	STEVE("Steve",'2',"Mobsters pack bonus","Not quite as crazy as Steve-O",PrefixState.NOTPURCHASED,true);
+
 	
 	private String name;
 	private char color;

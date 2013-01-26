@@ -42,5 +42,10 @@ public class SimplePrefixManager implements PrefixManager {
 
 		return newPrefix;
 	}
+	
+	public void delPrefix(String targetName, Prefix prefix, NotifyChanges notify) {
+		PrefixRecord record = plugin.getDatabase().find(PrefixRecord.class).where().ieq("target", targetName).eq("prefix", prefix).findUnique();
+		plugin.getDatabase().delete(record);
+	}
 
 }

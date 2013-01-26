@@ -13,5 +13,7 @@ public interface PrefixManager {
 	public PrefixRecord getBasePrefix(String playerName);
 
 	public String addPrefix(String targetName, Prefix prefix, NotifyChanges notify);
+	
+	public void delPrefix(String targetName, Prefix prefix, NotifyChanges notify);
 
 }

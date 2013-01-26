@@ -49,6 +49,18 @@ public class PlayerLoginListener implements Listener{
 			}
 			else
 				PrefixSwap.getManager().addPrefix(plr.getName(), prefix, NotifyChanges.TARGET);
+		} else {
+			Prefix prefix=Prefix.fromString(getGroupPrefix(plr));
+			if(prefix==null){
+				plugin.getServer().getLogger().severe(PREFIX_NOT_RECOGNIZED);
+			}
+			else {
+				Prefix base = Prefix.fromString(PrefixSwap.getManager().getBasePrefix(plr.getName()).getPrefix());
+				if(!base.getName().equals(prefix.getName())) {
+					PrefixSwap.getManager().addPrefix(plr.getName(), prefix, NotifyChanges.TARGET);
+					PrefixSwap.getManager().delPrefix(plr.getName(), base, NotifyChanges.TARGET);
+				}
+			}
 		}
 		
 		Prefix next;
