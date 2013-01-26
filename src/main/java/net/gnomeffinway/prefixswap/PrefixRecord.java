@@ -100,9 +100,6 @@ public class PrefixRecord {
 		return hidden;
 	}
 
-	public void setSecret(boolean secret) {
-		this.hidden = secret;
-	}
 
 	public PrefixState getState() {
 		return state;
