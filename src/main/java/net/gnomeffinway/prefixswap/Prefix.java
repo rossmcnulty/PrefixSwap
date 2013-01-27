@@ -12,6 +12,8 @@ public enum Prefix {
 	ARCHDUKE("Archduke",'6',"Donor 4 rank","Base rank for all fourth tier donors"),
 
 	//Unlockable ranks
+	ARTISAN("Artisan",'3',"Crafter prefix","Unlocked by crafting over 10,000 items", PrefixState.LOCKED),
+	BUTCHER("Butcher",'3',"Mob murderer prefix", "Unlocked by killing 5,000 non-hostile mobs or more", PrefixState.LOCKED),
 	MEDALIST("Medalist", '3', "McMMO leader prefix", "Unlocked by being in the top 3 on /mctop", PrefixState.LOCKED),
 	MERCHANT("Merchant", '3', "Wealth prefix", "Unlocked by acquiring $50,000 and over", PrefixState.LOCKED),
 	VETERAN("Veteran",'3',"Long-term prefix", "Unlocked by playing for 30 hours and over", PrefixState.LOCKED),
@@ -20,7 +22,7 @@ public enum Prefix {
 	LABRAT("Labrat", '3', "Tester prefix", "Unlocked if subjected to unreasonable server testing", PrefixState.LOCKED, true),
 	
 	//Buyable ranks
-	CREEPER("Creeper",'2',"Mobsters pack","Hsssssss...",PrefixState.NOTPURCHASED,true),
+	CREEPER("Creeper",'2',"Mobsters pack","Psssssshhhh...",PrefixState.NOTPURCHASED,true),
 	SQUID("Squid",'2',"Mobsters pack","May cause users to float randomly above water",PrefixState.NOTPURCHASED,true),
 	ZOMBIE("Zombie",'2',"Mobsters pack","Euurrgghhh",PrefixState.NOTPURCHASED,true),
 	PIGMAN("Pigman",'2',"Mobsters pack","Is it a pig? Is it a man? No! It's a Pigman!",PrefixState.NOTPURCHASED,true),

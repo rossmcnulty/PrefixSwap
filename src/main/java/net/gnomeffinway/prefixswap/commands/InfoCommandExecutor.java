@@ -51,20 +51,16 @@ public class InfoCommandExecutor extends PrefixSwapCommand implements CommandExe
 		String message = "";
 				
 		message += ChatColor.GOLD + "----- " + ChatColor.getByChar(prefix.getColor()) + record.getPrefix() + ChatColor.GOLD + " -----";
-		message += "\n" + ChatColor.GRAY + record.getDescLong();
+		message += "\n" + ChatColor.WHITE + record.getDescLong();
 		
 		if(record.getState() == PrefixState.BASE) {
 			sender.sendMessage(message);
 			return true;
 		}
 		
-		message += "\n" + ChatColor.GOLD + "Status: " + ChatColor.GRAY + record.getState();
+		message += "\n" + ChatColor.GOLD + "Status: " + ChatColor.WHITE + record.getState();
 		message += "\n" + ChatColor.GOLD + "Progress: ";
-		if(record.getState() == PrefixState.UNLOCKED)
-			message += ChatColor.GRAY + "Complete";
-		else {
-			message += ChatColor.GRAY + Requirements.progCheck(sender.getName(),prefix);
-		}
+		message += ChatColor.WHITE + Requirements.progCheck(sender.getName(),prefix);
 		
 		sender.sendMessage(message);
 		
